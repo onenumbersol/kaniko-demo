@@ -57,7 +57,6 @@ Step 1/9 : FROM klakegg/hugo:0.78.2-alpine AS build
 ```
 $ cat kaniko-git.yaml
     - edit context, destination
-$ 
 $ kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 $ kubectl apply -f kaniko-git.yaml
 ```
