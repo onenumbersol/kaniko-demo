@@ -7,18 +7,23 @@
 - 고수준 컨테이너 런타임
   - 저수준 런타임 위에 배치되어 있는 이미지로부터 컨테이너를 실행
 - 이미지 다운로드(고수준) -> 이미지를 번들로 압축 해제(고수준) -> 번들에서 컨테이너 실행(저수준)
-- docker = docker containerd(고수준) + docker runc(저수준)
 
 ## Docker를 제공하지 않는 이유
-- CRI가 등장 (Kubernetes 1.5)
+- CRI가 등장 (여러 유형의 컨테이너 런타임을 허용하는 인터페이스) - kube 1.15
   - Kubernetes 초창기에는 Docker만 사용할 수 있었으나 다양한 Container Runtime이 등장하면서 표준화가 필요해짐
-    - 1.5 이전 : kubelet(dockershim) - docker engine
-  - 여러 유형의 컨테이너 런타임을 허용하는 인터페이스
+    - docker = docker-engine(dockerd) + containerd(고수준) + container-shim + runc(저수준)
+    - kubelet - docker shim - docker
+      - kubelet이 docker와 직접 통신하지 못하며, docker shime을 통해 통신함
+      - kubelet에서 docker shim을 지원하지 않게 됨
+        - docker shim 유지보수에 대한 부담
+        - docker 업데이트 부재
 - Docker는 Client/Server, fork/exec 방식과 차이가 존재
+  - Client/Server 방식의 경우 장애가 발생하면 자식에게 모두 영향을 줌
+- Docker는 Root 권한을 가지고 있어야 해서 보안적인 이슈 지님
 
 ## 다른 빌드 도구 등장
 - Kubernetes가 Docker를 제공하지 않으면서 클러스터 내부에서 이미지 빌드가 어려워짐
-- Docker가 아닌 다른 빌드 도구 드앚
+- Docker가 아닌 다른 빌드 도구 등장
   - kaniko, buildah 등
 
 ### Docker를 통해서 로컬에서 컨테이너 이미지 빌드
