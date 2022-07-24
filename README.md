@@ -26,6 +26,8 @@
 - Docker가 아닌 다른 빌드 도구 등장
   - kaniko, buildah 등
 
+---
+
 ### Docker를 통해서 로컬에서 컨테이너 이미지 빌드
 ```
 $ docker build -t devops-toolkit .
