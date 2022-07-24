@@ -67,6 +67,7 @@ $ kubectl apply -f kaniko-git.yaml
 - https://github.com/vfarcic/kaniko-demo
 
 -- original readme --
+
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/vfarcic/copilot-demo)
 
 # Kaniko Demo
