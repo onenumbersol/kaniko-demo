@@ -16,9 +16,11 @@
   - 여러 유형의 컨테이너 런타임을 허용하는 인터페이스
 - Docker는 Client/Server, fork/exec 방식과 차이가 존재
 
-## 여러가지 빌드 방식
-- fork : https://github.com/vfarcic/kaniko-demo
-  
+## 다른 빌드 도구 등장
+- Kubernetes가 Docker를 제공하지 않으면서 클러스터 내부에서 이미지 빌드가 어려워짐
+- Docker가 아닌 다른 빌드 도구 드앚
+  - kaniko, buildah 등
+
 ### Docker를 통해서 로컬에서 컨테이너 이미지 빌드
 ```
 $ docker build -t devops-toolkit .
@@ -59,6 +61,18 @@ $ cat kaniko-git.yaml
     - edit context, destination
 $ kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 $ kubectl apply -f kaniko-git.yaml
+
+$ kubectl logs -f kaniko
+Enumerating objects: 203, done.
+Counting objects: 100% (25/25), done.
+Compressing objects: 100% (17/17), done.
+Total 203 (delta 16), reused 12 (delta 8), pack-reused 178
+INFO[0001] Resolved base name klakegg/hugo:0.78.2-alpine to build 
+INFO[0001] Using dockerignore file: /kaniko/buildcontext/.dockerignore 
+INFO[0001] Retrieving image manifest klakegg/hugo:0.78.2-alpine 
+INFO[0001] Retrieving image klakegg/hugo:0.78.2-alpine from registry index.docker.io 
+INFO[0004] Retrieving image manifest nginx:1.19.4-alpine 
+INFO[0004] Retrieving image nginx:1.19.4-alpine from registry index.docker.io
 ```
 
 ## 참고 사이트
