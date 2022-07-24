@@ -79,13 +79,4 @@ INFO[0004] Retrieving image nginx:1.19.4-alpine from registry index.docker.io
 - https://kubernetes.io/ko/blog/2020/12/02/dont-panic-kubernetes-and-docker/
 - https://github.com/GoogleContainerTools/kaniko
 - https://github.com/vfarcic/kaniko-demo
-
--- original readme --
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/vfarcic/copilot-demo)
-
-# Kaniko Demo
-
-Created for the following videos in [The DevOps Toolkit Series YouTube channel](https://www.youtube.com/c/TheDevOpsToolkitSeries):
-
-* [Kaniko - Building Container Images In Kubernetes Without Docker](https://youtu.be/EgwVQN6GNJg)
+- https://www.youtube.com/watch?v=EgwVQN6GNJg&feature=youtu.be
