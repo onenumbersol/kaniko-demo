@@ -16,7 +16,7 @@
 ## Docker를 제공하지 않는 이유
 - CRI가 등장 (여러 유형의 컨테이너 런타임을 허용하는 인터페이스) - kube 1.15
   - Kubernetes 초창기에는 Docker만 사용할 수 있었으나 다양한 Container Runtime이 등장하면서 표준화가 필요해짐
-    - docker = docker-engine(dockerd) + containerd(고수준) + container-shim + runc(저수준)
+    - ![docker-shim](./image/002_docker_shim.png)
     - kubelet - docker shim - docker
       - kubelet이 docker와 직접 통신하지 못하며, docker shim을 통해 통신함
       - kubelet에서 docker shim을 지원하지 않게 됨
