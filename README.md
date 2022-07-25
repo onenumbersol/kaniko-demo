@@ -8,12 +8,17 @@
   - 저수준 런타임 위에 배치되어 있는 이미지로부터 컨테이너를 실행
 - 이미지 다운로드(고수준) -> 이미지를 번들로 압축 해제(고수준) -> 번들에서 컨테이너 실행(저수준)
 
+## Docker
+![docker hierarchy](./image/001_docker_architecture.png)
+- docker client
+- docker server
+  
 ## Docker를 제공하지 않는 이유
 - CRI가 등장 (여러 유형의 컨테이너 런타임을 허용하는 인터페이스) - kube 1.15
   - Kubernetes 초창기에는 Docker만 사용할 수 있었으나 다양한 Container Runtime이 등장하면서 표준화가 필요해짐
     - docker = docker-engine(dockerd) + containerd(고수준) + container-shim + runc(저수준)
     - kubelet - docker shim - docker
-      - kubelet이 docker와 직접 통신하지 못하며, docker shime을 통해 통신함
+      - kubelet이 docker와 직접 통신하지 못하며, docker shim을 통해 통신함
       - kubelet에서 docker shim을 지원하지 않게 됨
         - docker shim 유지보수에 대한 부담
         - docker 업데이트 부재
