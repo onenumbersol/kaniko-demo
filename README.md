@@ -7,28 +7,39 @@
 - 고수준 컨테이너 런타임
   - 저수준 런타임 위에 배치되어 있는 이미지로부터 컨테이너를 실행
 - 이미지 다운로드(고수준) -> 이미지를 번들로 압축 해제(고수준) -> 번들에서 컨테이너 실행(저수준)
+- ![docker-architecture](./image/003_architecture.png)
 
 ## Docker
 ![docker hierarchy](./image/001_docker_architecture.png)
 - docker client
 - docker server
-  
+
+## CRI
+- Container Runtime Interface
+  - 파드의 기동과 정지
+  - start, stop, kill, delete 지원
+  - 레지스트리에서 이미지 관리 제공
+
 ## Docker를 제공하지 않는 이유
 - CRI가 등장 (여러 유형의 컨테이너 런타임을 허용하는 인터페이스) - kube 1.15
   - Kubernetes 초창기에는 Docker만 사용할 수 있었으나 다양한 Container Runtime이 등장하면서 표준화가 필요해짐
     - ![docker-shim](./image/002_docker_shim.png)
-    - kubelet - docker shim - docker
-      - kubelet이 docker와 직접 통신하지 못하며, docker shim을 통해 통신함
+    - docker engine(dockerd) -> containerd(고수준) -> runC(저수준) -> Container
+    - kubelet - docker shim - docker(engine)
+      - docker는 cri 표준을 지원하지 않기 때문에 kubelet이 docker와 직접 통신하지 못하며 docker shim을 통해 통신.
       - kubelet에서 docker shim을 지원하지 않게 됨
         - docker shim 유지보수에 대한 부담
         - docker 업데이트 부재
+      - cri 표준을 따르고 있는 containerd로 곧바로 통신 진행
 - Docker는 Client/Server, fork/exec 방식과 차이가 존재
   - Client/Server 방식의 경우 장애가 발생하면 자식에게 모두 영향을 줌
 - Docker는 Root 권한을 가지고 있어야 해서 보안적인 이슈 지님
 
-## 다른 빌드 도구 등장
+## 빌드 도구 등장
 - Kubernetes가 Docker를 제공하지 않으면서 클러스터 내부에서 이미지 빌드가 어려워짐
-- Docker가 아닌 다른 빌드 도구 등장
+- CRI-O, Containerd와 같은 런타임 인터페이스들은 컨테이너 생성, 이미지 빌드와 같은 기능을 제공하지 않음. 오로지 컨테이너를 실행하는 것이 목적
+- docker in docker 방식의 경우 privileged mode를 사용해 보안 이슈를 가지고 있으며 빌드 성능 저하를 일으킴
+- 이로 인하여 다른 빌드 도구 등장
   - kaniko, buildah 등
 
 ---
